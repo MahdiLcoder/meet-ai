@@ -13,8 +13,8 @@ import { OctagonAlertIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { FaGithub, FaGoogle } from "react-icons/fa";
 
 type Props = {}
 
@@ -30,6 +30,7 @@ const formSchema = z.object({
 
 export function SignUpView({ }: Props) {
 
+    const router = useRouter()
     const [error, setError] = useState<string | null>(null)
     const [pending, setPending] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
@@ -49,26 +50,10 @@ export function SignUpView({ }: Props) {
             name: data.name,
             email: data.email,
             password: data.password,
-            callbackURL: "/"
         }, {
             onSuccess: () => {
                 setPending(false)
-            },
-            onError: ({ error }: { error: { message: string } }) => {
-                setError(error.message)
-            }
-        })
-    }
-
-    const onSocial = async (provider: "github" | "google") => {
-        setError(null)
-        setPending(true)
-        authClient.signIn.social({
-            provider,
-            callbackURL: "/"
-        }, {
-            onSuccess: () => {
-                setPending(false)
+                router.push("/")
             },
             onError: ({ error }) => {
                 setError(error.message)
@@ -181,13 +166,11 @@ export function SignUpView({ }: Props) {
                                     <span className="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={() => { onSocial("google") }}  >
-                                        <FaGoogle />
+                                    <Button variant="outline" type="button" className="w-full" disabled={pending} >
+                                        Google
                                     </Button>
-                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={() => {
-                                        onSocial("github")
-                                    }}  >
-                                        <FaGithub />
+                                    <Button variant="outline" type="button" className="w-full" disabled={pending} >
+                                        Github
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
@@ -199,7 +182,7 @@ export function SignUpView({ }: Props) {
                         </form>
                     </Form>
 
-                    <div className="bg-radial from-green-500 to-green-900 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
+                    <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
                         <Image src={logo} alt="logo" width={92} height={92} />
                         <p className="text-2xl font-semibold text-white">
                             Meet.AI
