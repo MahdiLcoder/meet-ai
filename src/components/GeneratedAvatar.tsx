@@ -10,6 +10,16 @@ type Props = {
     variant: "botttsNeutral" | "initials"
 }
 
+/**
+ * Renders an avatar image generated from a seed string using the specified style variant.
+ *
+ * Depending on the `variant` prop, the avatar is generated using either the "botttsNeutral" or "initials" style from the Dicebear library. If the image fails to load, the component displays the capitalized first character of the seed as a fallback.
+ *
+ * @param seed - The string used to generate a unique avatar image
+ * @param variant - The avatar style variant, either "botttsNeutral" or "initials"
+ * @param className - Optional additional CSS classes for the avatar container
+ * @returns A React element displaying the generated avatar image or a fallback character
+ */
 function GeneratedAvatar({ seed, variant, className }: Props) {
 
     let avatar;

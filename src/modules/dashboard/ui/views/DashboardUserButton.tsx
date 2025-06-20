@@ -11,6 +11,11 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
+/**
+ * Displays a user avatar button with a dropdown menu for user actions in the dashboard.
+ *
+ * Shows the current user's avatar, name, and email. The dropdown menu provides options for billing and signing out. If the user signs out, they are redirected to the sign-in page. Renders nothing while session data is loading or unavailable.
+ */
 function DashboardUserButton() {
 
     const { data, isPending } = authClient.useSession()
