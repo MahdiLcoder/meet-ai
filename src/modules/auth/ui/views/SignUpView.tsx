@@ -28,6 +28,11 @@ const formSchema = z.object({
     path: ["confirmPassword"]
 })
 
+/**
+ * Renders a user registration form with validation and handles sign-up submission.
+ *
+ * Displays fields for name, email, password, and password confirmation, with validation and error feedback. On successful registration, navigates to the home page. Includes disabled buttons for social sign-in options and a link to the sign-in page for existing users.
+ */
 export function SignUpView({ }: Props) {
 
     const router = useRouter()

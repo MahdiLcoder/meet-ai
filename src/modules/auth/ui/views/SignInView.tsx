@@ -24,6 +24,11 @@ const formSchema = z.object({
     password: z.string().min(1, { message: "password is required" })
 })
 
+/**
+ * Renders the sign-in view with email/password and social login options.
+ *
+ * Displays a form for users to sign in using their email and password, or via Google or GitHub. Shows validation errors and authentication errors as needed. Includes links to sign up and to terms and privacy policies.
+ */
 export function SignInView({ }: Props) {
 
     const [error, setError] = useState<string | null>(null)

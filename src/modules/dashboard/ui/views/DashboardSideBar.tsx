@@ -32,6 +32,11 @@ const secondSection = [
         href: "/upgrade"
     },
 ]
+/**
+ * Renders the sidebar navigation for the dashboard, including logo, navigation links, and user controls.
+ *
+ * The sidebar displays grouped navigation items with active state highlighting based on the current route, and includes a footer with user-related actions.
+ */
 function DashboardSideBar({ }: Props) {
 
     const pathName = usePathname()
