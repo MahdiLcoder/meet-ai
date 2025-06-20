@@ -1,33 +1,16 @@
+
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
 
-type Props = {}
+function HomeView() {
 
-function HomeView({ }: Props) {
-
-    const router = useRouter()
-    const { data: session } = authClient.useSession()
-
-    if (!session) {
-        return <p>Loading...</p>
-    }
-    return (
-        <Button onClick={() => {
-            authClient.signOut({
-                fetchOptions: {
-                    onSuccess: () => {
-                        router.push('/sign-in')
-                    }
-                }
-            })
-        }}>
-            Sign out
-        </Button>
-    )
+    const trpc = useTRPC();
+    const greeting = useQuery(trpc.hello.queryOptions({ text: 'hhhh' }));
+    if (!greeting.data) return <div>Loading...</div>;
+    return <div>{greeting.data.greeting}</div>;
 }
+
 
 export default HomeView
