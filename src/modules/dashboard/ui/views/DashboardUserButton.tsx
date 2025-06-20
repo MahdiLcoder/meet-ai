@@ -38,7 +38,7 @@ function DashboardUserButton() {
                     "border border-border/20 hover:border-border/40",
                     "bg-background/80 hover:bg-background/90",
                     "transition-colors duration-200",
-                    "focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    "focus:outline-none focus:ring-2 focus:ring-primary/50 gap-x-2"
                 )
             }>
                 {data.user.image ? (
