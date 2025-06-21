@@ -4,8 +4,12 @@ import ErrorState from "@/components/ErrorState"
 import LoadingState from "@/components/LoadingState"
 import { useTRPC } from "@/trpc/client"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { DataTable } from "./DataTable"
+import { columns } from "./Columns"
+import EmptyState from "@/components/EmptyState"
 
 type Props = {}
+
 
 function AgentsView({ }: Props) {
 
@@ -14,8 +18,11 @@ function AgentsView({ }: Props) {
 
 
     return (
-        <div>
-            {JSON.stringify(data, null, 2)}
+        <div className="flex-1 pb-4 px-4 flex flex-col gap-y-4">
+            <DataTable data={data} columns={columns} />
+            {data.length === 0 && (
+                <EmptyState title="Create your first agent" description="create your agent to join our your meetings" />
+            )}
         </div>
     )
 }
