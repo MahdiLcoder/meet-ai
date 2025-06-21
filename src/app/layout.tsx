@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
-
+import { NuqsAdapter } from "nuqs/adapters/next"
 
 const geistSans = Inter({
   subsets: ["latin"],
@@ -23,15 +23,17 @@ export default function RootLayout({
 }>) {
 
   return (
-    <TRPCReactProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.className} antialiased`}
-        >
-          <Toaster />
-          {children}
-        </body>
-      </html>
-    </TRPCReactProvider>
+    <NuqsAdapter>
+      <TRPCReactProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.className} antialiased`}
+          >
+            <Toaster />
+            {children}
+          </body>
+        </html>
+      </TRPCReactProvider>
+    </NuqsAdapter>
   );
 }
