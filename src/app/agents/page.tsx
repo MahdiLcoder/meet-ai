@@ -8,13 +8,20 @@ import React, { Suspense } from 'react'
 import { headers } from 'next/headers'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import { SearchParams } from 'nuqs'
+import { loadSearchParams } from '@/modules/agents/params'
 
-type Props = {}
+type Props = {
+    searchParams: Promise<SearchParams>
+}
 
-async function page({ }: Props) {
+async function page({ searchParams }: Props) {
 
+    const filters = await loadSearchParams(searchParams)
     const queryClient = getQueryClient()
-    await queryClient.prefetchQuery(trpc.agents.getMany.queryOptions())
+    await queryClient.prefetchQuery(trpc.agents.getMany.queryOptions({
+        ...filters
+    }))
 
     const session = await auth.api.getSession({
         headers: await headers(),

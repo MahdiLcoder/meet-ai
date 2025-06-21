@@ -7,20 +7,30 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { DataTable } from "./DataTable"
 import { columns } from "./Columns"
 import EmptyState from "@/components/EmptyState"
+import { useAgentFilters } from "../../hooks/useFilters"
+import DataPagination from "./DataPagination"
 
 type Props = {}
 
 
 function AgentsView({ }: Props) {
 
+    const [filters, setFilters] = useAgentFilters()
     const trpc = useTRPC()
-    const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions())
+    const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions({
+        ...filters,
+    }))
 
 
     return (
         <div className="flex-1 pb-4 px-4 flex flex-col gap-y-4">
-            <DataTable data={data} columns={columns} />
-            {data.length === 0 && (
+            <DataTable data={data.items} columns={columns} />
+            <DataPagination
+                page={filters.page}
+                totalPages={data.total}
+                onPageChange={(page) => setFilters({ page })}
+            />
+            {data.items.length === 0 && (
                 <EmptyState title="Create your first agent" description="create your agent to join our your meetings" />
             )}
         </div>
