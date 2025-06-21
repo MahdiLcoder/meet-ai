@@ -9,10 +9,13 @@ type Props = {
 function DashboardCommand({ open, setOpen }: Props) {
     return (
         <CommandDialog open={open} onOpenChange={setOpen}>
-            <CommandInput placeholder='Find a meeting or agent'/>
+            <CommandInput placeholder='Find a meeting or agent' />
             <CommandList>
                 <CommandItem>
-                    Test
+                    Test 1
+                </CommandItem>
+                <CommandItem>
+                    Test 2
                 </CommandItem>
             </CommandList>
         </CommandDialog>
