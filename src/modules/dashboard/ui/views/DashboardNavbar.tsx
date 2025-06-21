@@ -29,7 +29,7 @@ function DashboardNavbar({ }: Props) {
                 <Button className="size-9" variant='outline' onClick={toggleSidebar}>
                     {state === "collapsed" || isMobile ? <PanelLeftIcon className="size-4" /> : <PanelLeftCloseIcon className="size-4" />}
                 </Button>
-                <Button className="h-9 w-[240px] justify-start font-normal text-muted-foreground hover:text-muted-foreground" variant="outline" size="sm" onClick={() => { setCommandOpen(open => !open) }}>
+                <Button className="h-9 w-[240px] justify-start font-normal text-muted-foreground hover:text-muted-foreground" variant="outline" size="sm" onClick={() => { setCommandOpen(open => !open) }}> 
                     <SearchIcon />
                     Search
                     <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted font-mono text-[10px] font-medium text-muted-foreground">
