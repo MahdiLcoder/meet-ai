@@ -16,8 +16,8 @@ type Props = {}
 const firstSection = [
     {
         icon: VideoIcon,
-        label: "Meatings",
-        href: "/meatings"
+        label: "Meetings",
+        href: "/meetings"
     },
     {
         icon: BotIcon,
