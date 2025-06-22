@@ -1,10 +1,11 @@
 'use client'
 
-import ErrorState from '@/components/ErrorState'
-import LoadingState from '@/components/LoadingState'
-import { useTRPC } from '@/trpc/client'
-import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React from 'react';
+
+import ErrorState from '@/components/ErrorState';
+import LoadingState from '@/components/LoadingState';
+import { useTRPC } from '@/trpc/client';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {}
 
@@ -14,7 +15,7 @@ function MeetingsView({ }: Props) {
     const { data } = useQuery(trpc.meetings.getMany.queryOptions({}))
     return (
         <div>
-            {JSON.stringify(data)}
+            Meeting page
         </div>
     )
 }
