@@ -6,7 +6,7 @@ import { useState } from "react"
 import NewMeetingDialog from "./NewMeetingDialog"
 import MeetingsSearchFilter from "./MeetingSearchFilter"
 import StatusFilter from "./StatusFilter"
-import AgentIdFilter from "./AgentIdFilter"
+import MeetingIdFilter from "./MeetingIdFilter"
 import { useMeetingsFilters } from "../../hooks/useMeetingsFilters"
 
 type Props = {}
@@ -40,7 +40,7 @@ function MeetingListHeader({ }: Props) {
                 <div className="flex items-center gap-x-2 p-1">
                     <MeetingsSearchFilter />
                     <StatusFilter />
-                    <AgentIdFilter />
+                    <MeetingIdFilter />
                     {isAnyFilterModified && (
                         <Button
                             variant={"outline"}

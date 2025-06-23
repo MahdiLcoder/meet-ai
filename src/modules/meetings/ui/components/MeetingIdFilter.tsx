@@ -7,7 +7,7 @@ import GeneratedAvatar from '@/components/GeneratedAvatar'
 
 type Props = {}
 
-function AgentIdFilter({ }: Props) {
+function MeetingIdFilter({ }: Props) {
 
     const [filters, setFilters] = useMeetingsFilters()
     const trpc = useTRPC()
@@ -42,4 +42,4 @@ function AgentIdFilter({ }: Props) {
     )
 }
 
-export default AgentIdFilter
+export default MeetingIdFilter
