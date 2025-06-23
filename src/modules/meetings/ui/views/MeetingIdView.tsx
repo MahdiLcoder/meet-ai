@@ -10,6 +10,10 @@ import useConfirm from '../../hooks/useConfirm'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import UpdateMeetingDialog from '../components/UpdateMeetingDialog'
+import UpcommingState from '../components/UpcommingState'
+import ActiveState from '../components/ActiveState'
+import CancelledState from '../components/CancelledState'
+import ProcessingState from '../components/ProcessingState'
 
 type Props = {
     meetingId: string
@@ -45,6 +49,12 @@ function MeetingIdView({ meetingId }: Props) {
         }
         await removeMeeting.mutateAsync({ id: meetingId })
     }
+
+    const isActive = data.status === "active";
+    const isUpcoming = data.status === "upcoming";
+    const isCancelled = data.status === "cancelled";
+    const isCompleted = data.status === "completed";
+    const isProcessing = data.status === "processing";
     return (
         <>
             <RemoveConfirmation />
@@ -55,7 +65,14 @@ function MeetingIdView({ meetingId }: Props) {
             />
             <div className="flex-1 py-4 md:px-8 flex flex-col gap-y-4">
                 <MeetingIdViewHeader meetingId={meetingId} meetingName={data.name} onEdit={() => { setUpdateMeetingDialogOpen(true) }} onRemove={handleRemoveMeeting} />
-                {JSON.stringify(data)}
+                {isCancelled && <CancelledState />}
+                {isProcessing && <ProcessingState />}
+                {isCompleted && <div>Completed</div>}
+                {isActive && <ActiveState meetingId={meetingId} />}
+                {isUpcoming && <UpcommingState
+                    meetingId={meetingId}
+                    onCancelMeeting={() => { }}
+                    isCancelling={false} />}
             </div>
         </>
     )
