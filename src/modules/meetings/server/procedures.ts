@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from '@/constant';
 import { db } from '@/db';
-import { meetings } from '@/db/schema';
+import { agents, meetings } from '@/db/schema';
 import { createTRPCRouter, protectedProcedure } from '@/trpc/init';
 import { TRPCError } from '@trpc/server';
 import { meetingsInsertSchema, meetingUpdateSchema } from '../schemas';
@@ -56,15 +56,17 @@ export const meetingsRouter = createTRPCRouter({
 
         const { search, page, pageSize } = input
         const data = await db.select({
-            ...getTableColumns(meetings)
-        }).from(meetings).where(
+            ...getTableColumns(meetings),
+            agent: agents,
+            duration: sql<number>`EXTRACT(EPOCH FROM (ended_at - started_at))`.as("duration")
+        }).from(meetings).innerJoin(agents, eq(meetings.agentId, agents.id)).where(
             and(
                 eq(meetings.userId, ctx.auth.user.id),
                 search ? ilike(meetings.name, `%${search}`) : undefined,
             )
         ).orderBy(desc(meetings.createdAt), desc(meetings.id)).limit(pageSize).offset((page - 1) * pageSize)
 
-        const total = await db.select({ count: count() }).from(meetings).where(
+        const total = await db.select({ count: count() }).from(meetings).innerJoin(agents, eq(meetings.agentId, agents.id)).where(
             and(
                 eq(meetings.userId, ctx.auth.user.id),
                 search ? ilike(meetings.name, `%${search}`) : undefined,
