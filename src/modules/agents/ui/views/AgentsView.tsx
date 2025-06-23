@@ -8,7 +8,7 @@ import { DataTable } from "./DataTable"
 import { columns } from "./Columns"
 import EmptyState from "@/components/EmptyState"
 import { useAgentFilters } from "../../hooks/useFilters"
-import DataPagination from "./DataPagination"
+import DataPagination from "../../../../components/DataPagination"
 import { useRouter } from "next/navigation"
 
 type Props = {}
