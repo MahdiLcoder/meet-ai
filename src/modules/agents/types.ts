@@ -3,5 +3,14 @@ import type { AppRouter } from "@/trpc/routers/_app"
 
 export type AgentGetOne = inferRouterOutputs<AppRouter>["agents"]["getOne"]
 export type AgentGetMany = inferRouterOutputs<AppRouter>["agents"]["getMany"]["items"]
+
+
 export type MeetingtGetOne = inferRouterOutputs<AppRouter>["meetings"]["getOne"]
 export type MeetingGetMany = inferRouterOutputs<AppRouter>["meetings"]["getMany"]
+export enum MeetingStatus {
+    Upcoming = "upcoming",
+    Active = "active",
+    Completed = "completed",
+    Processing = "processing",
+    Cancelled = "cancelled",
+}
