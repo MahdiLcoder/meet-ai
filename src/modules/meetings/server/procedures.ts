@@ -8,10 +8,30 @@ import { createTRPCRouter, protectedProcedure } from '@/trpc/init';
 import { TRPCError } from '@trpc/server';
 import { meetingsInsertSchema, meetingUpdateSchema } from '../schemas';
 import { MeetingStatus } from '@/modules/agents/types';
+import { streamVideo } from '@/lib/stream-video';
+import GeneratedAvatar from '@/lib/avatar';
 
 export const meetingsRouter = createTRPCRouter({
 
+    generateToken: protectedProcedure.mutation(async ({ ctx }) => {
+        await streamVideo.upsertUsers([
+            {
+                id: ctx.auth.user.id,
+                name: ctx.auth.user.name,
+                role: "admin",
+                image: ctx.auth.user.image ?? GeneratedAvatar({ seed: ctx.auth.user.name, variant: "initials" })
+            }
+        ])
+        const expirationTime = Math.floor(Date.now() / 1000) + 3600
+        const issueAt = Math.floor(Date.now() / 1000) - 60
 
+        const token = streamVideo.generateUserToken({
+            user_id: ctx.auth.user.id,
+            exp: expirationTime,
+            validity_in_seconds: issueAt
+        })
+        return token
+    }),
     remove: protectedProcedure.input(z.object({
         id: string()
     })).mutation(async ({ input, ctx }) => {
@@ -46,6 +66,46 @@ export const meetingsRouter = createTRPCRouter({
             userId: ctx.auth.user.id,
         }).returning()
 
+        const call = streamVideo.video.call("default", createdMeeting.id)
+        await call.create({
+            data: {
+                created_by_id: ctx.auth.user.id,
+                custom: {
+                    meetingId: createdMeeting.id,
+                    meetingName: createdMeeting.name
+                },
+                settings_override: {
+                    transcription: {
+                        language: "en",
+                        mode: "auto-on",
+                        closed_caption_mode: "auto-on",
+                    },
+                    recording: {
+                        mode: "auto-on",
+                        quality: "1080p"
+                    }
+                },
+            }
+        })
+
+        const [existingAgent] = await db.select().from(agents).where(
+            eq(agents.id, createdMeeting.id,
+            ))
+        if (!existingAgent) {
+            throw new TRPCError({ code: "NOT_FOUND", message: "Agent Not found" })
+        }
+
+        await streamVideo.upsertUsers([
+            {
+                id: existingAgent.id,
+                name: existingAgent.name,
+                role: "user",
+                image: GeneratedAvatar({
+                    seed: existingAgent.name,
+                    variant: "botttsNeutral"
+                })
+            }
+        ])
         return createdMeeting
     }),
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ input, ctx }) => {
