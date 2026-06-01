@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const pricingCardVariants = cva("rounded-lg p-4 py-6 w-full", {
+const pricingCardVariants = cva("rounded-2xl p-8 w-full border transition-all duration-300 hover:shadow-lg slide-up", {
   variants: {
     variant: {
-      default: "bg-white text-black",
-      highlighted: "bg-linear-to-br from-[#093C23] to-[#051B16] text-white",
+      default: "bg-card border-border hover:border-primary/30 hover:bg-card/80",
+      highlighted: "bg-gradient-to-br from-primary to-primary/80 text-white border-primary shadow-lg shadow-primary/20",
     }
   },
   defaultVariants: {
@@ -113,27 +113,30 @@ export const PricingCard = ({
         <Separator className="opacity-10 text-[#5D6B68]" />
       </div>
       <Button
-        className="w-full"
-        size="lg"
-        variant={variant === "highlighted" ? "default" : "outline"}
+        className={cn(
+          "w-full h-11 font-semibold transition-all duration-200",
+          variant === "highlighted" 
+            ? "bg-white text-primary hover:bg-white/90" 
+            : "bg-gradient-to-r from-primary to-primary/80 text-white hover:from-primary/90 hover:to-primary/70"
+        )}
         onClick={onClick}
       >
         {buttonText}
       </Button>
-      <div className="flex flex-col gap-y-2 mt-6">
-        <p className="font-medium uppercase">Features</p>
+      <div className="flex flex-col gap-4 mt-8 border-t border-border/50 pt-8">
+        <p className="font-semibold uppercase text-sm tracking-wider">Features</p>
         <ul
           className={cn(
-            "flex flex-col gap-y-2.5",
+            "flex flex-col gap-3",
             pricingCardSecondaryTextVariants({ variant })
           )}
         >
           {features.map((feature, index) => (
-            <li key={index} className="flex items-center gap-x-2.5">
+            <li key={index} className="flex items-start gap-3">
               <CircleCheckIcon
-                className={cn(pricingCardIconVariants({ variant }))}
+                className={cn(pricingCardIconVariants({ variant }), "flex-shrink-0 mt-0.5")}
               />
-              {feature}
+              <span className="text-sm">{feature}</span>
             </li>
           ))}
         </ul>
