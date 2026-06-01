@@ -10,12 +10,14 @@ export const LoadingState = ({
   description
 }: Props) => {
   return (
-    <div className="py-4 px-8 flex flex-1 items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-y-6 bg-background rounded-lg p-10 shadow-sm">
-        <Loader2Icon className="size-6 animate-spin text-primary" />
-        <div className="flex flex-col gap-y-2 text-center">
-          <h6 className="text-lg font-medium">{title}</h6>
-          <p className="text-sm">{description}</p>
+    <div className="py-12 px-8 flex flex-1 items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-6 bg-gradient-to-br from-card to-card/50 rounded-2xl p-12 shadow-lg border border-primary/20 fade-in max-w-md">
+        <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+          <Loader2Icon className="size-8 animate-spin text-primary" />
+        </div>
+        <div className="flex flex-col gap-2 text-center">
+          <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
     </div>
