@@ -27,9 +27,9 @@ export const DashboardNavbar = () => {
   return (
     <>
       <DashboardCommand open={commandOpen} setOpen={setCommandOpen} />
-      <nav className="flex px-6 gap-3 items-center py-4 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
+      <nav className="flex px-3 sm:px-6 gap-2 sm:gap-3 items-center py-3 sm:py-4 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
         <Button
-          className="size-10 rounded-lg"
+          className="size-9 sm:size-10 rounded-lg"
           variant="outline"
           onClick={toggleSidebar}
         >
@@ -40,7 +40,7 @@ export const DashboardNavbar = () => {
           )}
         </Button>
         <Button
-          className="h-10 w-[240px] justify-start font-normal text-muted-foreground hover:text-foreground transition-colors hover:bg-muted/80 rounded-lg"
+          className="hidden sm:flex h-9 sm:h-10 w-[240px] justify-start font-normal text-muted-foreground hover:text-foreground transition-colors hover:bg-muted/80 rounded-lg"
           variant="outline"
           size="sm"
           onClick={() => setCommandOpen((open) => !open)}
@@ -48,6 +48,20 @@ export const DashboardNavbar = () => {
           <SearchIcon className="size-4" />
           <span className="ml-2">Search</span>
           <kbd className="ml-auto pointer-events-none inline-flex h-6 select-none items-center gap-1 rounded border border-border bg-muted px-2 font-mono text-[11px] font-medium text-muted-foreground">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </Button>
+        <Button
+          className="sm:hidden ml-auto size-9 rounded-lg"
+          variant="outline"
+          size="sm"
+          onClick={() => setCommandOpen((open) => !open)}
+        >
+          <SearchIcon className="size-4" />
+        </Button>
+      </nav>
+    </>
+  );
             <span className="text-xs">⌘</span>K
           </kbd>
         </Button>
