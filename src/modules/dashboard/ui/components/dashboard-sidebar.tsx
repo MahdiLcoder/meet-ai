@@ -48,32 +48,32 @@ export const DashboardSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader className="text-sidebar-accent-foreground">
-        <Link href="/" className="flex items-center gap-2 px-2 pt-2">
-          <Image src="/logo.svg" height={36} width={36} alt="Meet.AI" />
-          <p className="text-2xl font-semibold">Meet.AI</p>
+      <SidebarHeader className="text-sidebar-accent-foreground border-b border-sidebar-accent/20">
+        <Link href="/" className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-sidebar-accent/10 transition-colors duration-200">
+          <Image src="/logo.svg" height={40} width={40} alt="Meet.AI" className="rounded-md" />
+          <p className="text-xl font-bold bg-gradient-to-r from-sidebar-accent-foreground to-sidebar-foreground bg-clip-text text-transparent">Meet.AI</p>
         </Link>
       </SidebarHeader>
       <div className="px-4 py-2">
         <Separator className="opacity-10 text-[#5D6B68]" />
       </div>
-      <SidebarContent>
+      <SidebarContent className="pt-4 space-y-6">
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-2">
               {firstSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
-                      pathname === item.href && "bg-linear-to-r/oklch border-[#5D6B68]/10"
+                      "h-11 rounded-lg transition-all duration-200 hover:bg-sidebar-accent/15 hover:text-sidebar-accent-foreground",
+                      pathname === item.href && "bg-sidebar-accent text-sidebar-accent-foreground font-semibold"
                     )}
                     isActive={pathname === item.href}
                   >
                     <Link href={item.href}>
                       <item.icon className="size-5" />
-                      <span className="text-sm font-medium tracking-tight">
+                      <span className="text-sm font-medium">
                         {item.label}
                       </span>
                     </Link>
@@ -83,25 +83,22 @@ export const DashboardSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <div className="px-4 py-2">
-          <Separator className="opacity-10 text-[#5D6B68]" />
-        </div>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-2">
               {secondSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
-                      pathname === item.href && "bg-linear-to-r/oklch border-[#5D6B68]/10"
+                      "h-11 rounded-lg transition-all duration-200 hover:bg-sidebar-accent/15 hover:text-sidebar-accent-foreground",
+                      pathname === item.href && "bg-gradient-to-r from-primary to-primary/80 text-white font-semibold"
                     )}
                     isActive={pathname === item.href}
                   >
                     <Link href={item.href}>
                       <item.icon className="size-5" />
-                      <span className="text-sm font-medium tracking-tight">
+                      <span className="text-sm font-medium">
                         {item.label}
                       </span>
                     </Link>
@@ -112,7 +109,7 @@ export const DashboardSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="text-white">
+      <SidebarFooter className="text-white border-t border-sidebar-accent/20 space-y-2">
         <DashboardTrial />
         <DashboardUserButton />
       </SidebarFooter>

@@ -23,16 +23,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email(),
-  password: z.string().min(1, { message: "Password is required" }),
-  confirmPassword: z.string().min(1, { message: "Password is required" }),
-})
-.refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const formSchema = z
+  .object({
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z.string().email(),
+    password: z.string().min(1, { message: "Password is required" }),
+    confirmPassword: z.string().min(1, { message: "Password is required" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 export const SignUpView = () => {
   const router = useRouter();
@@ -68,11 +69,10 @@ export const SignUpView = () => {
         },
         onError: ({ error }) => {
           setPending(false);
-          setError(error.message)
+          setError(error.message);
         },
-      }
+      },
     );
-
   };
 
   const onSocial = (provider: "github" | "google") => {
@@ -90,9 +90,9 @@ export const SignUpView = () => {
         },
         onError: ({ error }) => {
           setPending(false);
-          setError(error.message)
+          setError(error.message);
         },
-      }
+      },
     );
   };
 
@@ -227,7 +227,10 @@ export const SignUpView = () => {
                 </div>
                 <div className="text-center text-sm">
                   Already have an account?{" "}
-                  <Link href="/sign-in" className="underline underline-offset-4">
+                  <Link
+                    href="/sign-in"
+                    className="underline underline-offset-4"
+                  >
                     Sign in
                   </Link>
                 </div>
@@ -237,15 +240,14 @@ export const SignUpView = () => {
 
           <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
             <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
-            <p className="text-2xl font-semibold text-white">
-              Meet.AI
-            </p>
+            <p className="text-2xl font-semibold text-white">Meet.AI</p>
           </div>
         </CardContent>
       </Card>
 
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>
       </div>
     </div>
   );
