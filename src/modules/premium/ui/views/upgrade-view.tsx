@@ -12,19 +12,21 @@ import { PricingCard } from "../components/pricing-card";
 export const UpgradeView = () => {
   const trpc = useTRPC();
 
-   const { data: products } = useSuspenseQuery(
-    trpc.premium.getProducts.queryOptions()
+  const { data: products } = useSuspenseQuery(
+    trpc.premium.getProducts.queryOptions(),
   );
 
   const { data: currentSubscription } = useSuspenseQuery(
-    trpc.premium.getCurrentSubscription.queryOptions()
+    trpc.premium.getCurrentSubscription.queryOptions(),
   );
 
   return (
     <div className="flex-1 flex flex-col gap-10 fade-in">
       <div className="flex flex-col gap-6 items-center text-center">
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider">Premium Plans</p>
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider">
+            Premium Plans
+          </p>
           <h1 className="font-bold text-4xl md:text-5xl bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
             You are on the{" "}
             <span className="text-primary">
@@ -33,7 +35,8 @@ export const UpgradeView = () => {
             plan
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Upgrade your plan to unlock advanced features and increase your limits
+            Upgrade your plan to unlock advanced features and increase your
+            limits
           </p>
         </div>
       </div>
@@ -71,12 +74,10 @@ export const UpgradeView = () => {
               }
               description={product.description}
               priceSuffix={`/${product.prices[0].recurringInterval}`}
-              features={product.benefits.map(
-                (benefit) => benefit.description
-              )}
+              features={product.benefits.map((benefit) => benefit.description)}
               badge={product.metadata.badge as string | null}
             />
-          )
+          );
         })}
       </div>
     </div>

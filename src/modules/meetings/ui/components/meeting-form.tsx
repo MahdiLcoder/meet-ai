@@ -31,7 +31,7 @@ interface MeetingFormProps {
   onSuccess?: (id?: string) => void;
   onCancel?: () => void;
   initialValues?: MeetingGetOne;
-};
+}
 
 export const MeetingForm = ({
   onSuccess,
@@ -115,19 +115,27 @@ export const MeetingForm = ({
 
   return (
     <>
-      <NewAgentDialog open={openNewAgentDialog} onOpenChange={setOpenNewAgentDialog} />
+      <NewAgentDialog
+        open={openNewAgentDialog}
+        onOpenChange={setOpenNewAgentDialog}
+      />
       <Form {...form}>
-        <form className="space-y-6 slide-up" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className="space-y-6 slide-up"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FormField
             name="name"
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base font-semibold">Meeting Name</FormLabel>
+                <FormLabel className="text-base font-semibold">
+                  Meeting Name
+                </FormLabel>
                 <FormControl>
-                  <Input 
-                    {...field} 
-                    placeholder="e.g. Math Consultations" 
+                  <Input
+                    {...field}
+                    placeholder="e.g. Math Consultations"
                     className="h-11 rounded-lg"
                   />
                 </FormControl>
@@ -140,7 +148,9 @@ export const MeetingForm = ({
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base font-semibold">Select Agent</FormLabel>
+                <FormLabel className="text-base font-semibold">
+                  Select Agent
+                </FormLabel>
                 <FormControl>
                   <CommandSelect
                     options={(agents.data?.items ?? []).map((agent) => ({
@@ -155,7 +165,7 @@ export const MeetingForm = ({
                           />
                           <span className="font-medium">{agent.name}</span>
                         </div>
-                      )
+                      ),
                     }))}
                     onSelect={field.onChange}
                     onSearch={setAgentSearch}
@@ -189,12 +199,19 @@ export const MeetingForm = ({
                 Cancel
               </Button>
             )}
-            <Button 
-              disabled={isPending} 
+            <Button
+              disabled={isPending}
               type="submit"
               className="ml-auto bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold h-11 px-8 rounded-lg"
             >
-              {isPending ? (isEdit ? "Updating..." : "Creating...") : (isEdit ? "Update" : "Create")} Meeting
+              {isPending
+                ? isEdit
+                  ? "Updating..."
+                  : "Creating..."
+                : isEdit
+                  ? "Update"
+                  : "Create"}{" "}
+              Meeting
             </Button>
           </div>
         </form>

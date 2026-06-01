@@ -6,17 +6,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const pricingCardVariants = cva("rounded-2xl p-8 w-full border transition-all duration-300 hover:shadow-lg slide-up", {
-  variants: {
-    variant: {
-      default: "bg-card border-border hover:border-primary/30 hover:bg-card/80",
-      highlighted: "bg-gradient-to-br from-primary to-primary/80 text-white border-primary shadow-lg shadow-primary/20",
-    }
+const pricingCardVariants = cva(
+  "rounded-2xl p-8 w-full border transition-all duration-300 hover:shadow-lg slide-up",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-card border-border hover:border-primary/30 hover:bg-card/80",
+        highlighted:
+          "bg-gradient-to-br from-primary to-primary/80 text-white border-primary shadow-lg shadow-primary/20",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
   },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+);
 
 const pricingCardIconVariants = cva("size-5", {
   variants: {
@@ -61,7 +66,7 @@ interface Props extends VariantProps<typeof pricingCardVariants> {
   className?: string;
   buttonText: string;
   onClick: () => void;
-};
+}
 
 export const PricingCard = ({
   variant,
@@ -90,7 +95,7 @@ export const PricingCard = ({
           <p
             className={cn(
               "text-xs",
-              pricingCardSecondaryTextVariants({ variant })
+              pricingCardSecondaryTextVariants({ variant }),
             )}
           >
             {description}
@@ -115,26 +120,31 @@ export const PricingCard = ({
       <Button
         className={cn(
           "w-full h-11 font-semibold transition-all duration-200",
-          variant === "highlighted" 
-            ? "bg-white text-primary hover:bg-white/90" 
-            : "bg-gradient-to-r from-primary to-primary/80 text-white hover:from-primary/90 hover:to-primary/70"
+          variant === "highlighted"
+            ? "bg-white text-primary hover:bg-white/90"
+            : "bg-gradient-to-r from-primary to-primary/80 text-white hover:from-primary/90 hover:to-primary/70",
         )}
         onClick={onClick}
       >
         {buttonText}
       </Button>
       <div className="flex flex-col gap-4 mt-8 border-t border-border/50 pt-8">
-        <p className="font-semibold uppercase text-sm tracking-wider">Features</p>
+        <p className="font-semibold uppercase text-sm tracking-wider">
+          Features
+        </p>
         <ul
           className={cn(
             "flex flex-col gap-3",
-            pricingCardSecondaryTextVariants({ variant })
+            pricingCardSecondaryTextVariants({ variant }),
           )}
         >
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3">
               <CircleCheckIcon
-                className={cn(pricingCardIconVariants({ variant }), "flex-shrink-0 mt-0.5")}
+                className={cn(
+                  pricingCardIconVariants({ variant }),
+                  "flex-shrink-0 mt-0.5",
+                )}
               />
               <span className="text-sm">{feature}</span>
             </li>
@@ -144,4 +154,3 @@ export const PricingCard = ({
     </div>
   );
 };
-
