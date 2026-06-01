@@ -13,11 +13,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Meet.AI - AI-Powered Meeting Assistant",
-  description: "Intelligent video conferencing platform where AI agents join your meetings, take notes, and generate summaries automatically.",
-  keywords: ["AI", "Meetings", "Video Conference", "Meeting Assistant", "Transcription", "Summaries"],
+  description:
+    "Intelligent video conferencing platform where AI agents join your meetings, take notes, and generate summaries automatically.",
+  keywords: [
+    "AI",
+    "Meetings",
+    "Video Conference",
+    "Meeting Assistant",
+    "Transcription",
+    "Summaries",
+  ],
   openGraph: {
     title: "Meet.AI - AI-Powered Meeting Assistant",
-    description: "Intelligent video conferencing platform with AI-powered meeting summaries and transcription.",
+    description:
+      "Intelligent video conferencing platform with AI-powered meeting summaries and transcription.",
     type: "website",
   },
 };
@@ -31,9 +40,7 @@ export default function RootLayout({
     <NuqsAdapter>
       <TRPCReactProvider>
         <html lang="en">
-          <body
-            className={`${inter.className} antialiased`}
-          >
+          <body className={`${inter.className} antialiased`}>
             <Toaster />
             {children}
           </body>
