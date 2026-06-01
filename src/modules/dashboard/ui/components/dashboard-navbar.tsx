@@ -28,11 +28,16 @@ export const DashboardNavbar = () => {
     <>
       <DashboardCommand open={commandOpen} setOpen={setCommandOpen} />
       <nav className="flex px-6 gap-3 items-center py-4 border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-0 z-40">
-        <Button className="size-10 rounded-lg" variant="outline" onClick={toggleSidebar}>
-          {(state === "collapsed" || isMobile) 
-            ?  <PanelLeftIcon className="size-4" /> 
-            : <PanelLeftCloseIcon className="size-4" />
-          }
+        <Button
+          className="size-10 rounded-lg"
+          variant="outline"
+          onClick={toggleSidebar}
+        >
+          {state === "collapsed" || isMobile ? (
+            <PanelLeftIcon className="size-4" />
+          ) : (
+            <PanelLeftCloseIcon className="size-4" />
+          )}
         </Button>
         <Button
           className="h-10 w-[240px] justify-start font-normal text-muted-foreground hover:text-foreground transition-colors hover:bg-muted/80 rounded-lg"

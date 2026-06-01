@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  return ( 
+  return (
     <SidebarProvider>
       <DashboardSidebar />
       <main className="flex flex-col h-screen w-screen bg-background/50">
@@ -22,5 +22,5 @@ const Layout = ({ children }: Props) => {
     </SidebarProvider>
   );
 };
- 
+
 export default Layout;

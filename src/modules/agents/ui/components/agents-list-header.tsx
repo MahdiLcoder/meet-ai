@@ -22,7 +22,7 @@ export const AgentsListHeader = () => {
       search: "",
       page: DEFAULT_PAGE,
     });
-  }
+  };
 
   return (
     <>
@@ -37,7 +37,10 @@ export const AgentsListHeader = () => {
               Create and manage your AI agents for meetings
             </p>
           </div>
-          <Button onClick={() => setIsDialogOpen(true)} className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold h-11 px-6">
+          <Button
+            onClick={() => setIsDialogOpen(true)}
+            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold h-11 px-6"
+          >
             <PlusIcon className="size-5" />
             New Agent
           </Button>
@@ -46,7 +49,12 @@ export const AgentsListHeader = () => {
           <div className="flex items-center gap-3">
             <AgentsSearchFilter />
             {isAnyFilterModified && (
-              <Button variant="outline" size="sm" onClick={onClearFilters} className="ml-auto">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onClearFilters}
+                className="ml-auto"
+              >
                 <XCircleIcon className="size-4" />
                 Clear filters
               </Button>

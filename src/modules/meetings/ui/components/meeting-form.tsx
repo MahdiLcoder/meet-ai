@@ -117,15 +117,19 @@ export const MeetingForm = ({
     <>
       <NewAgentDialog open={openNewAgentDialog} onOpenChange={setOpenNewAgentDialog} />
       <Form {...form}>
-        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="space-y-6 slide-up" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             name="name"
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-base font-semibold">Meeting Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="e.g. Math Consultations" />
+                  <Input 
+                    {...field} 
+                    placeholder="e.g. Math Consultations" 
+                    className="h-11 rounded-lg"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,34 +140,34 @@ export const MeetingForm = ({
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Agent</FormLabel>
+                <FormLabel className="text-base font-semibold">Select Agent</FormLabel>
                 <FormControl>
                   <CommandSelect
                     options={(agents.data?.items ?? []).map((agent) => ({
                       id: agent.id,
                       value: agent.id,
                       children: (
-                        <div className="flex items-center gap-x-2">
+                        <div className="flex items-center gap-3">
                           <GeneratedAvatar
                             seed={agent.name}
                             variant="botttsNeutral"
-                            className="border size-6"
+                            className="border border-primary/50 size-8 rounded-lg"
                           />
-                          <span>{agent.name}</span>
+                          <span className="font-medium">{agent.name}</span>
                         </div>
                       )
                     }))}
                     onSelect={field.onChange}
                     onSearch={setAgentSearch}
                     value={field.value}
-                    placeholder="Select an agent"
+                    placeholder="Search and select an agent"
                   />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="text-xs text-muted-foreground/70">
                   Not found what you&apos;re looking for?{" "}
                   <button
                     type="button"
-                    className="text-primary hover:underline"
+                    className="text-primary font-semibold hover:underline"
                     onClick={() => setOpenNewAgentDialog(true)}
                   >
                     Create new agent
@@ -173,19 +177,24 @@ export const MeetingForm = ({
               </FormItem>
             )}
           />
-          <div className="flex justify-between gap-x-2">
+          <div className="flex justify-between gap-3 pt-4 border-t border-border/50">
             {onCancel && (
               <Button
-                variant="ghost"
+                variant="outline"
                 disabled={isPending}
                 type="button"
                 onClick={() => onCancel()}
+                className="rounded-lg h-11"
               >
                 Cancel
               </Button>
             )}
-            <Button disabled={isPending} type="submit">
-              {isEdit ? "Update" : "Create"}
+            <Button 
+              disabled={isPending} 
+              type="submit"
+              className="ml-auto bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold h-11 px-8 rounded-lg"
+            >
+              {isPending ? (isEdit ? "Updating..." : "Creating...") : (isEdit ? "Update" : "Create")} Meeting
             </Button>
           </div>
         </form>
